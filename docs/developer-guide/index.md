@@ -26,13 +26,11 @@ This guide is for developers who want to:
 
 - [Building MCP Servers](/docs/developer-guide/building-mcps) - Deep dive into MCP architecture and development
 - [Best Practices](/docs/developer-guide/best-practices) - Patterns and recommendations
-- [Authentication](/docs/developer-guide/authentication) - Securing your MCP servers
 
 ### Platform Integration
 
 - [Platform Requirements](/docs/developer-guide/platform-requirements) - HTTP/SSE, port 8080, Docker
 - [Deployment Architecture](/docs/developer-guide/deployment-architecture) - How agnexus deploys your servers
-- [API Reference](/docs/developer-guide/api-reference) - agnexus API documentation
 
 ### Contributing
 

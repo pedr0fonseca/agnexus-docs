@@ -41,7 +41,6 @@ This guide covers all features and capabilities of the agnexus platform. Whether
 ## Advanced Topics
 
 - [Environment Variables](/docs/user-guide/environment-variables) - Configure your servers
-- [Health Checks](/docs/user-guide/health-checks) - Monitor server status
 - [Logs & Monitoring](/docs/user-guide/logs) - View deployment and runtime logs
 - [Troubleshooting](/docs/user-guide/troubleshooting) - Common issues and solutions
 

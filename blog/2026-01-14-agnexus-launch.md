@@ -2,9 +2,7 @@
 slug: agnexus-launch
 title: agnexus is Live!
 authors:
-  - name: Pedro Fonseca
-    title: Creator of agnexus
-    image_url: https://github.com/pedr0fonseca.png
+  - pedrofonseca
 tags: [announcement, launch]
 ---
 

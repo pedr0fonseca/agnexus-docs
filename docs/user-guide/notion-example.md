@@ -4,147 +4,123 @@ sidebar_position: 2
 
 # Notion MCP Example
 
-This guide walks you through deploying a Notion MCP server on agnexus. This real-world example demonstrates how to connect an MCP server to Notion's API to enable AI assistants to read and write Notion pages.
+This guide walks you through deploying a Notion MCP server from the agnexus marketplace. This real-world example demonstrates how to connect an MCP server to Notion's API to enable AI assistants to interact with your Notion workspace.
 
-## What We're Building
+## What We're Deploying
 
-A Notion MCP server that provides:
-- **Tools**: Create pages, update pages, search pages
-- **Resources**: Access Notion database schemas and page contents
-- **Prompts**: Templates for common Notion workflows
+The Notion MCP Server provides 21 tools that enable:
+- Querying and managing data sources (databases)
+- Creating, retrieving, and updating pages
+- Searching content across your workspace
+- Commenting on pages
+- Uploading files
+- And more
 
 ## Prerequisites
 
-- An agnexus account
-- A Notion integration token ([create one here](https://www.notion.so/my-integrations))
-- Basic understanding of MCP servers
+- An agnexus account ([sign up](https://agnexus.ai/signup))
+- A Notion workspace
+- A Notion integration token
 
-## Step 1: Prepare Your Notion MCP Code
+## Step 1: Set Up Your Notion Integration Token
 
-### Project Structure
+Before deploying, you need to create a Notion integration and get your token:
 
-Your Notion MCP server should have this structure:
+1. Go to [Notion Integrations](https://www.notion.so/profile/integrations)
+2. Click **"New integration"** or select an existing one
+3. Choose **"Internal integration"**
+4. Give it a name (e.g., "My MCP Server")
+5. Go to the **"Configuration"** tab
+6. Copy the **Integration Secret** - this is your `NOTION_TOKEN` value
 
-```
-notion-mcp/
-├── main.py (or index.js)
-├── requirements.txt (or package.json)
-├── Dockerfile (optional, will be generated)
-└── README.md
-```
+Save this token - you'll need it during deployment.
 
-### Example Python Implementation
+## Step 2: Find the Notion MCP in Marketplace
 
-Here's a minimal Notion MCP server using FastMCP:
+1. Log in to your [agnexus dashboard](https://agnexus.ai/dashboard)
+2. Navigate to the [Marketplace](https://agnexus.ai/marketplace)
+3. Search for "Notion" or browse the available templates
+4. Click on the **Notion MCP Server** to view details
 
-```python
-from mcp import FastMCP
-import httpx
+## Step 3: Deploy from Marketplace
 
-mcp = FastMCP("Notion MCP")
+1. On the Notion MCP Server page, click the **"Deploy"** button
+2. You'll be guided through the deployment workflow with step-by-step instructions
+3. Follow the prompts to configure your deployment
 
-@mcp.tool()
-def create_notion_page(title: str, parent_id: str, content: str = "") -> dict:
-    """Create a new page in Notion."""
-    # Implementation here
-    pass
+## Step 4: Configure Deployment
 
-@mcp.tool()
-def search_notion_pages(query: str) -> list:
-    """Search for pages in Notion."""
-    # Implementation here
-    pass
+During the deployment workflow, you'll be asked to configure:
 
-@mcp.resource("notion://page/{page_id}")
-def get_notion_page(page_id: str) -> str:
-    """Get a specific Notion page."""
-    # Implementation here
-    pass
+### Server Name
 
-if __name__ == "__main__":
-    mcp.run()
-```
+Enter a name for your server (e.g., `my-notion-mcp`)
+
+### Description (Optional)
+
+Add a description if you'd like
 
 ### Environment Variables
 
-Your server will need:
-- `NOTION_API_KEY`: Your Notion integration token
-- `NOTION_DATABASE_ID`: (Optional) Default database ID
+This is the crucial step! You need to add your Notion token:
 
-## Step 2: Create Server on agnexus
+1. Navigate to the **Environment Variables** section
+2. Click **"Add Environment Variable"**
+3. Enter the variable name: `NOTION_TOKEN`
+4. Enter the value: `ntn_<your_integration_secret>`
+   - Replace `<your_integration_secret>` with the actual token you copied from Notion
+   - The token should start with `ntn_`
+5. Mark it as a secret (recommended)
+6. Click **"Save"**
 
-1. Log in to [agnexus dashboard](https://agnexus.ai/dashboard)
-2. Navigate to **Deploy** → **Create New Server**
-3. Name it: `notion-mcp-server`
-4. Click **Create**
+### Other Configuration
 
-## Step 3: Upload Your Code
+- **Region**: Select the region closest to you
+- **Dockerfile**: The marketplace template includes a Dockerfile, so you can use the provided one
 
-### Option A: ZIP Upload
+## Step 5: Complete Deployment
 
-1. Zip your Notion MCP code:
-   ```bash
-   cd notion-mcp
-   zip -r notion-mcp.zip .
-   ```
+1. Review all your settings
+2. Click **"Deploy"** to start the deployment
+3. You'll be redirected to the deployment page where you can watch the progress
+4. Wait for the deployment to complete (usually takes a few minutes)
 
-2. In the agnexus dashboard, click **Upload Code**
-3. Select `notion-mcp.zip`
-4. Wait for validation
+## Step 6: Connect Content to Your Integration
 
-### Option B: GitHub Integration
+After deployment, you need to grant your Notion integration access to the pages and databases you want to use:
 
-1. Push your code to GitHub
-2. In agnexus, click **Connect GitHub**
-3. Authorize and select your repository
-4. Choose the branch (usually `main`)
+### Option 1: Grant Access via Integration Settings
 
-## Step 4: Configure Environment Variables
+1. Go back to [Notion Integrations](https://www.notion.so/profile/integrations)
+2. Click on your integration
+3. Go to the **"Access"** tab
+4. Click **"Edit access"**
+5. Select the pages and databases you want the server to access
+6. Click **"Save"**
 
-1. In the server configuration, go to **Environment Variables**
-2. Add:
-   - `NOTION_API_KEY`: Your Notion integration token
-   - `NOTION_DATABASE_ID`: (Optional) Your default database ID
-3. Click **Save**
+### Option 2: Connect Individual Pages
 
-## Step 5: Review Configuration
+1. Open a page in Notion that you want to connect
+2. Click the **3 dots menu** (⋯) in the top right
+3. Select **"Connect to integration"**
+4. Choose your integration from the list
 
-agnexus will auto-detect:
-- **Language**: Python (from `requirements.txt`)
-- **Entry Point**: `main.py`
-- **Port**: 8080 (required for MCP servers)
-- **Dockerfile**: Generated automatically (or use your own)
-
-### Important Notes
-
-- **Port 8080**: Your MCP server must listen on port 8080
-- **HTTP/SSE**: Your server must use HTTP with Server-Sent Events (SSE) transport
-- **Dockerfile**: While AI-generated Dockerfiles are available, we recommend using a manual Dockerfile for production
-
-## Step 6: Deploy
-
-1. Click the **Deploy** button
-2. Watch the deployment progress:
-   - Building Docker image
-   - Pushing to registry
-   - Deploying to production
-3. Wait for "Deployed" status
+Repeat this for each page or database you want to access.
 
 ## Step 7: Access Your Server
 
 Once deployed, your Notion MCP server will be available at:
 
 ```
-https://notion-mcp-server.agnexus.ai
+https://your-server-name.agnexus.ai
 ```
 
 ### Testing Your Server
 
-You can test your MCP server using the MCP Inspector or by connecting it to an MCP client:
+You can test your MCP server using the MCP Inspector:
 
 ```bash
-# Using MCP Inspector
-npx @modelcontextprotocol/inspector https://notion-mcp-server.agnexus.ai
+npx @modelcontextprotocol/inspector https://your-server-name.agnexus.ai
 ```
 
 ## Step 8: Connect to Your AI Assistant
@@ -156,15 +132,14 @@ Now you can connect your Notion MCP server to AI assistants like Claude Desktop:
    {
      "mcpServers": {
        "notion": {
-         "url": "https://notion-mcp-server.agnexus.ai",
-         "transport": "sse"
+         "url": "https://your-server-name.agnexus.ai"
        }
      }
    }
    ```
 
 2. Restart your AI assistant
-3. Your assistant can now interact with Notion!
+3. Your assistant can now interact with your Notion workspace!
 
 ## Common Use Cases
 
@@ -181,41 +156,52 @@ Your AI assistant can:
 - Query your Notion knowledge base
 - Update documentation automatically
 - Create structured content from unstructured data
+- Manage databases programmatically
 
 ### Use Case 3: Task Management
 
 - Create tasks from conversations
 - Update task status
 - Search and filter tasks
+- Add comments and updates
 
 ## Troubleshooting
 
 ### Server Not Starting
 
 - Check logs in the agnexus dashboard
-- Verify port 8080 is exposed in your Dockerfile
-- Ensure HTTP/SSE transport is configured
+- Verify `NOTION_TOKEN` environment variable is set correctly
+- Ensure the token starts with `ntn_`
+- Check deployment logs for specific errors
 
 ### Notion API Errors
 
-- Verify your `NOTION_API_KEY` is correct
-- Check that your integration has access to the databases
+- Verify your `NOTION_TOKEN` is correct
+- Check that pages/databases are connected to your integration
 - Review Notion API rate limits
+- Ensure your integration has the necessary capabilities
+
+### "No Access" Errors
+
+- Make sure you've connected pages to your integration (Step 6)
+- Check the integration's access settings in Notion
+- Verify the integration has the right permissions
 
 ### Deployment Failures
 
-- Check that your Dockerfile is valid
-- Verify all dependencies are in `requirements.txt`
+- Check that your environment variable is set correctly
 - Review deployment logs for specific errors
+- Verify the Dockerfile is valid
+- Contact support if issues persist
 
 ## Next Steps
 
 - [Learn about GitHub integration](/docs/user-guide/github-integration) - Set up automatic deployments
-- [Explore the marketplace](/docs/user-guide/marketplace) - Find more MCP templates
-- [Read the developer guide](/docs/developer-guide/building-mcps) - Build your own MCP servers
+- [Explore more marketplace templates](/docs/user-guide/marketplace) - Discover other MCP servers
+- [Manage your deployments](/docs/user-guide/managing-deployments) - Pause, update, and monitor
 
 ## Additional Resources
 
 - [Notion API Documentation](https://developers.notion.com/)
 - [MCP Protocol Specification](https://modelcontextprotocol.io)
-- [FastMCP Documentation](https://gofastmcp.com)
+- [Notion Integrations Guide](https://developers.notion.com/docs/getting-started)

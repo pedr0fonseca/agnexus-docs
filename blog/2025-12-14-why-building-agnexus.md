@@ -2,9 +2,7 @@
 slug: why-building-agnexus
 title: Why I'm Building agnexus
 authors:
-  - name: Pedro Fonseca
-    title: Creator of agnexus
-    image_url: https://github.com/pedr0fonseca.png
+  - pedrofonseca
 tags: [announcement, vision]
 ---
 
