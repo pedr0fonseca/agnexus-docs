@@ -44,7 +44,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/pedr0fonseca/oppigo/tree/main/agnexus-docs/',
+            'https://github.com/pedr0fonseca/agnexus-docs/tree/main/agnexus-docs/',
         },
         blog: {
           showReadingTime: true,
@@ -55,7 +55,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/pedr0fonseca/oppigo/tree/main/agnexus-docs/',
+            'https://github.com/pedr0fonseca/agnexus-docs/tree/main/agnexus-docs/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
@@ -89,7 +89,7 @@ const config: Config = {
         },
         {to: '/blog', label: 'Announcements', position: 'left'},
         {
-          href: 'https://github.com/pedr0fonseca/oppigo',
+          href: 'https://github.com/pedr0fonseca/agnexus-docs',
           label: 'GitHub',
           position: 'right',
         },
@@ -141,7 +141,7 @@ const config: Config = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/pedr0fonseca/oppigo',
+              href: 'https://github.com/pedr0fonseca/agnexus-docs',
             },
             {
               label: 'Terms',

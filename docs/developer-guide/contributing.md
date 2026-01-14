@@ -62,5 +62,5 @@ Please read and follow our [Code of Conduct](/docs/developer-guide/code-of-condu
 ## Next Steps
 
 - [Read the code of conduct](/docs/developer-guide/code-of-conduct)
-- [Check GitHub repository](https://github.com/pedr0fonseca/oppigo)
+- [Check GitHub repository](https://github.com/pedr0fonseca/agnexus-docs)
 - [Join the community](https://agnexus.ai/community)
