@@ -1,0 +1,14 @@
+announcement:
+  label: Announcement
+  permalink: /announcement
+  description: Platform announcements and updates
+
+launch:
+  label: Launch
+  permalink: /launch
+  description: Launch announcements and releases
+
+vision:
+  label: Vision
+  permalink: /vision
+  description: Our vision and roadmap
